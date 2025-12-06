@@ -1,0 +1,110 @@
+/* === ARKA PLAN === */
+.register-wrapper {
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Inter", sans-serif;
+
+  background:
+    linear-gradient(rgba(0,0,0,0.40), rgba(0,0,0,0.40)),
+    url("../assets/background.jpg") center/cover no-repeat;
+}
+
+/* === KISALTILMIŞ • COMPACT KUTU === */
+.register-box {
+  width: 300px;               /* genişlik aynı */
+  padding: 10px 18px;         /* 🔥 15px → 10px (üst-alt boşluk azaldı) */
+  background: rgba(255, 255, 255, 0.10);
+  backdrop-filter: blur(14px);
+  border-radius: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  box-shadow: 0 18px 40px rgba(0,0,0,0.35);
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;                   /* 🔥 6px → 4px (satırlar birbirine yaklaştı) */
+
+  position: relative;
+}
+
+/* === LOGO === */
+.register-logo {
+  width: 180px;               /* logo boyu aynı */
+  display: block;
+  margin: 0 auto -2px auto;   /* 🔥 biraz daha yukarı çekildi */
+  filter: drop-shadow(0 0 6px rgba(255,255,255,0.35));
+}
+
+/* === BAŞLIK === */
+.register-box h2 {
+  text-align: center;
+  color: #fff;
+  margin: 2px 0 8px 0;        /* 🔥 4px 0 10px → 2px 0 8px */
+  font-size: 19px;
+  font-weight: 600;
+}
+
+/* === INPUT & SELECT === */
+.register-box input,
+.register-box select {
+  padding: 9px;               
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.28);
+  background: rgba(255,255,255,0.20);
+  color: #fff;
+  outline: none;
+  font-size: 13px;
+}
+
+.register-box input::placeholder {
+  color: rgba(255,255,255,0.92);
+}
+
+/* SELECT DROPDOWN */
+.register-box select option {
+  background: #2b3a4d;
+  color: #fff;
+  padding: 10px;
+}
+
+/* === BUTTONS === */
+.register-buttons {
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 6px;            /* 🔥 8px → 6px */
+}
+
+.btn-secondary,
+.btn-primary {
+  flex: 1;
+  padding: 10px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: 0.25s ease;
+  font-size: 14px;
+}
+
+/* Geri dön */
+.btn-secondary {
+  background: rgba(255,255,255,0.20);
+  color: #fff;
+  border: none;
+}
+
+.btn-secondary:hover {
+  background: rgba(255,255,255,0.30);
+}
+
+/* Kayıt ol */
+.btn-primary {
+  border: none;
+  background: linear-gradient(90deg, #3b82f6, #06b6d4);
+  color: #fff;
+}
+
+.btn-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 22px rgba(0,180,255,0.30);
+}

@@ -1,0 +1,61 @@
+.dashboard-container {
+  padding: 20px 20px 20px 0;  /* ← Sol boşluğu kaldırıyoruz */
+  font-family: 'Inter', sans-serif;
+  color: #fff;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0a1b33 0%, #12345a 40%, #1c4b6b 100%);
+}
+
+.topbar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  background: rgba(255,255,255,0.1);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  margin-bottom: 25px;
+}
+
+.topbar-logo {
+  width: 38px;
+}
+
+.topbar-title {
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.welcome-box {
+  margin-bottom: 30px;
+}
+
+.welcome-box h1 {
+  font-size: 26px;
+  font-weight: 700;
+}
+
+.welcome-box p {
+  opacity: 0.8;
+  margin-top: 6px;
+}
+
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.card {
+  background: rgba(255,255,255,0.12);
+  padding: 20px;
+  border-radius: 16px;
+  backdrop-filter: blur(12px);
+  cursor: pointer;
+  transition: 0.25s;
+}
+
+.card:hover {
+  background: rgba(255,255,255,0.2);
+  transform: translateY(-4px);
+}

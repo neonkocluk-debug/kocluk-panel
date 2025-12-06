@@ -1,0 +1,211 @@
+.soru-wrapper {
+  margin: 0;
+  padding: 20px;
+  font-family: "Inter", sans-serif;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: stretch;
+  background: linear-gradient(
+    180deg,
+    #0a1b33 0%,
+    #112a4d 40%,
+    #1b3a5c 65%,
+    #2b4e6c 100%
+  );
+  position: relative;
+  overflow: hidden;
+}
+
+.soru-glow {
+  position: absolute;
+  width: 650px;
+  height: 650px;
+  border-radius: 50%;
+  filter: blur(150px);
+  opacity: 0.4;
+  z-index: 1;
+}
+
+.soru-glow.glow1 {
+  background: radial-gradient(circle, rgba(0, 180, 255, 0.35), transparent 70%);
+  top: -180px;
+  left: -180px;
+}
+
+.soru-glow.glow2 {
+  background: radial-gradient(circle, rgba(255, 140, 0, 0.25), transparent 70%);
+  bottom: -200px;
+  right: -180px;
+}
+
+.soru-box {
+  position: relative;
+  z-index: 5;
+  width: 100%;
+  max-width: 1100px;        /* GENİŞLETTİM (daha iyi görünür) */
+  margin-left: 20px;        /* SOLA YAKLAŞTI */
+  margin-right: 20px;       /* SAĞDAN DA AZ BOŞLUK */
+  padding: 24px 22px;
+
+  background: rgba(15, 23, 42, 0.85);
+  backdrop-filter: blur(20px);
+  border-radius: 20px;
+  border: 1px solid rgba(148, 163, 184, 0.4);
+  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.6);
+  color: #e5e7eb;
+
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.soru-box h2 {
+  font-size: 22px;
+  margin-bottom: 4px;
+}
+
+.soru-tarih {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.soru-tarih label {
+  font-size: 14px;
+}
+
+.soru-tarih input {
+  padding: 8px 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(148, 163, 184, 0.7);
+  background: rgba(15, 23, 42, 0.9);
+  color: #f9fafb;
+  font-size: 14px;
+}
+
+.soru-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.soru-bottom {
+  margin-top: 18px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-end;
+}
+
+.soru-toplam {
+  font-size: 15px;
+}
+
+.soru-bottom button {
+  padding: 10px 18px;
+  border-radius: 12px;
+  border: none;
+  background: linear-gradient(90deg, #3b82f6, #0ea5e9, #06b6d4);
+  color: #f9fafb;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: 0.25s ease;
+}
+
+.soru-bottom button:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 180, 255, 0.35);
+}
+
+/* ================================================= */
+/* 📱 MOBİL DÜZENLEME (BOZMADAN EK)                  */
+/* ================================================= */
+
+@media (max-width: 768px) {
+
+  /* Ana zemin – kenarlardan taşmayı engelle */
+  .soru-wrapper {
+    padding: 12px;
+    align-items: flex-start;
+  }
+
+  /* Ana kutu – mobilde tam genişlik + daha hafif */
+  .soru-box {
+    max-width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 16px 14px;
+    border-radius: 16px;
+  }
+
+  /* Başlıklar biraz küçülsün */
+  .soru-box h2 {
+    font-size: 20px;
+  }
+
+  .soru-box h3 {
+    font-size: 14px !important;
+  }
+
+  /* GRID’LER TEMİZTEK KOLON OLSUN (SIRA KORUNUR) */
+
+  /* 4’lü özet kartlar */
+  .soru-box > div[style*="repeat(4"] {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Kaynak kitap kartları */
+  .soru-box div[style*="auto-fit"] {
+    grid-template-columns: 1fr !important;
+    gap: 12px !important;
+  }
+
+  /* Grafik alanları */
+  .soru-box > div[style*="minmax(280px"] {
+    grid-template-columns: 1fr !important;
+    gap: 16px !important;
+  }
+
+  /* Grafik kapları biraz sıkı */
+  .soru-box > div[style*="minmax(280px"] > div {
+    padding: 10px !important;
+    border-radius: 14px;
+  }
+
+  /* Yazılar mobilde daha okunur */
+  .soru-box p {
+    font-size: 12px;
+    line-height: 1.45;
+  }
+
+  /* Uzun yorumlar mobilde göz yormasın */
+  .soru-box div[style*="font-size: 11px"] {
+    opacity: 0.7;
+  }
+
+  /* Glow efektleri mobilde bastır */
+  .soru-glow {
+    opacity: 0.3;
+  }
+}
+/* ================================================= */
+/* 📱 MOBİL – SIDEBAR TAM GİZLE + İÇERİK GENİŞLET     */
+/* ================================================= */
+
+@media (max-width: 768px) {
+
+  /* Sidebar artık mobilde yer kaplamaz */
+  .sidebar {
+    transform: translateX(-100%);
+  }
+
+  /* Sidebar varsa bile ekranı daraltmasın */
+  body {
+    overflow-x: hidden;
+  }
+}

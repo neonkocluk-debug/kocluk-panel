@@ -1,0 +1,282 @@
+.kaynak-wrapper {
+  padding: 40px;
+  max-width: 900px;
+  margin: auto;
+  color: #fff;
+}
+
+.kaynak-title {
+  font-size: 32px;
+  font-weight: 700;
+  margin-bottom: 25px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.kaynak-ekleme {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+}
+
+.kaynak-ekleme input {
+  flex: 1;
+  padding: 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+.kaynak-ekleme button {
+  background: linear-gradient(90deg, #3fa9f5, #6edb8f);
+  border: none;
+  padding: 12px 20px;
+  border-radius: 10px;
+  font-weight: bold;
+  cursor: pointer;
+  color: #000;
+}
+
+.kaynak-list {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.kaynak-card {
+  background: rgba(255, 255, 255, 0.07);
+  padding: 25px;
+  border-radius: 15px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.kaynak-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.kaynak-isim {
+  font-size: 22px;
+  font-weight: 600;
+}
+
+.kaynak-badge {
+  background: rgba(255, 255, 255, 0.15);
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 14px;
+}
+
+.kaynak-detay {
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+/* ============================================================
+   🔥 PREMIUM – CANLI – ANİMASYONLU PROGRESS BAR
+   ============================================================ */
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 50px;
+  margin: 15px 0;
+  overflow: hidden;
+  position: relative;
+}
+
+.progress-fill {
+  height: 100%;
+  border-radius: 50px;
+  width: 0%;
+  transition: width 0.35s ease-in-out;
+
+  background: linear-gradient(
+    90deg,
+    #00f2fe,
+    #4facfe,
+    #38f9d7,
+    #43e97b
+  );
+  background-size: 300% 300%;
+  animation: progressGlow 4s ease infinite;
+}
+
+@keyframes progressGlow {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+/* ============================================================ */
+
+.okunan-input {
+  display: flex;
+  gap: 10px;
+}
+
+.okunan-input input {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  color: #fff;
+}
+
+/* ============================================================
+   ⭐ YENİ – BUGÜN BİTEN INPUT (Premium Glass Tasarım)
+   ============================================================ */
+.kaynak-input-modern {
+  width: 160px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #e9eefb;
+  font-size: 14px;
+  transition: 0.25s ease;
+  backdrop-filter: blur(6px);
+}
+
+.kaynak-input-modern::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.kaynak-input-modern:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.15);
+  border-color: rgba(255, 255, 255, 0.35);
+  box-shadow: 0 0 12px rgba(90, 165, 255, 0.25);
+}
+
+/* ============================================================
+   ⭐ YENİ – DÜZENLE BUTONU (Modern Capsule Button)
+   ============================================================ */
+.kaynak-btn {
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.10);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  font-size: 13px;
+  cursor: pointer;
+  transition: 0.25s ease;
+  backdrop-filter: blur(6px);
+}
+
+.kaynak-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px rgba(180, 200, 255, 0.25);
+}
+
+.btn-kaydet {
+  background: #4cd964;
+  border: none;
+  padding: 10px 18px;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+/* === PREMIUM MODERN INPUT === */
+.kaynak-input-modern {
+  width: 170px;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: #e9eefb;
+  font-size: 14px;
+  transition: 0.25s ease;
+  backdrop-filter: blur(6px);
+}
+
+.kaynak-input-modern::placeholder {
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.kaynak-input-modern:focus {
+  outline: none;
+  background: rgba(255, 255, 255, 0.2);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 14px rgba(90, 165, 255, 0.25);
+}
+
+/* === PREMIUM DÜZENLE BUTONU === */
+.kaynak-btn {
+  padding: 8px 16px;
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  cursor: pointer;
+  font-size: 13px;
+  transition: 0.25s ease;
+  backdrop-filter: blur(6px);
+}
+
+.kaynak-btn:hover {
+  background: rgba(255, 255, 255, 0.18);
+  transform: translateY(-2px);
+  box-shadow: 0 0 10px rgba(200, 220, 255, 0.25);
+}
+
+/* === RENKLİ ANİMASYONLU PROGRESS BAR === */
+.progress-bar {
+  width: 100%;
+  height: 12px;
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: 12px;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
+.progress-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 12px;
+  background: linear-gradient(90deg, #00f2fe, #4facfe, #43e97b);
+  background-size: 200% 200%;
+  animation: barFlow 4s infinite ease;
+  transition: width 0.3s ease;
+}
+
+@keyframes barFlow {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.btn-ekle {
+  background: linear-gradient(90deg, #3fa9f5, #6edb8f);
+  color: #fff;
+  font-weight: 700;
+
+  height: 36px;            /* 🔥 Dikeyde incelttik */
+  padding: 0 18px;         /* yana normal, dikey input ile tam hizalı */
+  
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  transition: 0.25s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.22);
+  white-space: nowrap;
+}
+
+.btn-ekle:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.28);
+}
+
+.btn-ekle:active {
+  transform: scale(0.96);
+}
+
+

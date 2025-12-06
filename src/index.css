@@ -1,0 +1,24 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.page-wrapper {
+  margin-left: 140px;
+  padding: 32px 40px;   /* ⬅ üstten biraz daha nefes */
+  min-height: 100vh;
+  background: #f8fafc;
+}
+.panel-box {
+  background: linear-gradient(
+    180deg,
+    rgba(10, 27, 51, 0.97),
+    rgba(15, 40, 70, 0.97)
+  );
+  border-radius: 24px;
+  padding: 32px;
+  color: #fff;
+
+  box-shadow:
+    0 20px 40px rgba(0,0,0,0.25),
+    inset 0 1px 0 rgba(255,255,255,0.06);
+}

@@ -1,0 +1,35 @@
+/* ===== LAYOUT TEMEL ===== */
+
+.app-layout {
+  display: flex;
+  min-height: 100vh;
+  background: linear-gradient(180deg, #0a1b33, #112a4d);
+}
+
+.app-content {
+  width: 100%;
+  margin-left: 160px;          /* 🖥️ Masaüstü sidebar genişliği */
+  padding: 32px 40px;
+  box-sizing: border-box;
+  transition: 0.3s ease;
+}
+
+.app-inner {
+  max-width: 1400px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+/* ===== MOBİL ===== */
+@media (max-width: 768px) {
+  .app-content {
+    margin-left: 0;            /* ✅ DARLIK BURADA ÇÖZÜLÜYOR */
+    padding: 16px;
+  }
+
+  .sidebar {
+    transform: translateX(-100%);
+  }
+}
