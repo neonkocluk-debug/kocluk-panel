@@ -4,6 +4,13 @@ import { UserContext } from "../context/UserContext";
 import { DenemeContext } from "../context/DenemeContext";
 import { useNavigate } from "react-router-dom";
 
+// ✅ TARİH PARSE (25.11.2025 -> Date)
+const parseTarih = (tarihStr = "") => {
+  if (!tarihStr) return new Date(0);
+  const [gun, ay, yil] = tarihStr.split(".");
+  return new Date(Number(yil), Number(ay) - 1, Number(gun));
+};
+
 export default function Denemeler() {
   const userContext = useContext(UserContext);
   const denemeContext = useContext(DenemeContext);
@@ -34,13 +41,14 @@ export default function Denemeler() {
     return n1.includes(n2) || n2.includes(n1);
   };
 
+  // ✅ SADECE SORT DÜZELTİLDİ
   const myTYT = (tytDenemeler || [])
     .filter((d) => isSameStudent(d?.ogrenci, activeUser.ad))
-    .sort((a, b) => new Date(b?.tarih) - new Date(a?.tarih));
+    .sort((a, b) => parseTarih(b?.tarih) - parseTarih(a?.tarih));
 
   const myAYT = (aytDenemeler || [])
     .filter((d) => isSameStudent(d?.ogrenci, activeUser.ad))
-    .sort((a, b) => new Date(b?.tarih) - new Date(a?.tarih));
+    .sort((a, b) => parseTarih(b?.tarih) - parseTarih(a?.tarih));
 
   return (
     <div className="page-wrapper">
@@ -94,8 +102,9 @@ function Table({ data = [], navigate }) {
               <td className="p-4 font-semibold">{d?.toplamNet}</td>
               <td className="p-4">
                 <button
-                  // ✅ İlgili denemenin türü ve id'siyle analiz sayfasına git
-                  onClick={() => navigate(`/deneme-analiz/${d.tur}/${d.id}`)}
+                  onClick={() =>
+                    navigate(`/deneme-analiz/${d.tur}/${d.id}`)
+                  }
                   style={{
                     padding: "6px 12px",
                     borderRadius: 8,
