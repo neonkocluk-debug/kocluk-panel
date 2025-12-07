@@ -58,14 +58,42 @@ export default function Sidebar() {
           <span className="label">Kaynaklar</span>
         </NavLink>
 
-        <NavLink
-          to="/denemeler"
-          className="sidebar-link"
-          onClick={handleLinkClick}
-        >
-          <span className="icon">📊</span>
-          <span className="label">Denemeler</span>
-        </NavLink>
+        {/* ===== DENEMELER ANA BAŞLIK ===== */}
+        <div className="sidebar-section">
+          <NavLink
+            to="/denemeler"
+            className="sidebar-link"
+            onClick={handleLinkClick}
+          >
+            <span className="icon">📊</span>
+            <span className="label">Denemeler</span>
+          </NavLink>
+
+          {/* Alt Sekmeler */}
+          <div className="sidebar-submenu">
+            <NavLink
+              to="/denemeler/tyt"
+              className="sidebar-sublink"
+              onClick={handleLinkClick}
+            >
+              TYT
+            </NavLink>
+            <NavLink
+              to="/denemeler/ayt"
+              className="sidebar-sublink"
+              onClick={handleLinkClick}
+            >
+              AYT
+            </NavLink>
+            <NavLink
+              to="/denemeler/yanlislar"
+              className="sidebar-sublink"
+              onClick={handleLinkClick}
+            >
+              Yanlışlar
+            </NavLink>
+          </div>
+        </div>
 
         <button className="sidebar-logout" onClick={handleLogout}>
           <span className="icon">🚪</span>

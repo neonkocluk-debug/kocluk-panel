@@ -69,9 +69,9 @@ function App() {
             }
           />
 
-          {/* ✅ DENEME ANALİZ (grafikler burada olacak) */}
+          {/* ✅ DENEME ANALİZ – PARAMETRELİ */}
           <Route
-            path="/deneme-analiz"
+            path="/deneme-analiz/:tur/:id"
             element={
               <Layout>
                 <DenemeAnaliz />

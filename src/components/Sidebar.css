@@ -170,3 +170,82 @@
     transform: translateX(0);
   }
 }
+/* ================================================= */
+/* === DENEMELER ALT SEKMELER ====================== */
+/* ================================================= */
+
+.sidebar-section {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Alt menü kapsayıcı */
+.sidebar-submenu {
+  margin-left: 28px;
+  margin-top: 6px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+/* Alt sekme linkleri */
+.sidebar-sublink {
+  padding: 6px 8px;
+  border-radius: 8px;
+  font-size: 12px;
+  text-decoration: none;
+  color: #e5e7eb;
+  opacity: 0.8;
+  transition: 0.2s ease;
+}
+
+/* Hover */
+.sidebar-sublink:hover {
+  background: rgba(255, 255, 255, 0.08);
+  opacity: 1;
+  transform: translateX(2px);
+}
+
+/* Aktif alt sekme */
+.sidebar-sublink.active {
+  background: linear-gradient(
+    90deg,
+    rgba(59, 130, 246, 0.45),
+    rgba(59, 130, 246, 0.25)
+  );
+  box-shadow:
+    0 0 8px rgba(59,130,246,0.35),
+    inset 0 0 0 1px rgba(255,255,255,0.12);
+  font-weight: 600;
+  opacity: 1;
+}
+/* === Alt Sekme İkon (Nokta) === */
+.sidebar-sublink {
+  position: relative;
+  padding-left: 18px; /* nokta için boşluk */
+}
+
+/* Nokta */
+.sidebar-sublink::before {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.4);
+  transition: 0.25s ease;
+}
+
+/* Hover’da belirginleşsin */
+.sidebar-sublink:hover::before {
+  background: rgba(255,255,255,0.8);
+}
+
+/* Aktif sekmede parlayan nokta */
+.sidebar-sublink.active::before {
+  background: rgba(59,130,246,1);
+  box-shadow: 0 0 8px rgba(59,130,246,0.9);
+}
