@@ -1,7 +1,6 @@
 import { createContext, useState, useEffect } from "react";
 import * as XLSX from "xlsx";
 
-/* ✅ İSİM EXPORT – ASIL KRİTİK SATIR */
 export const DenemeContext = createContext();
 
 /* ✅ Excel seri tarih → normal tarih */
@@ -16,16 +15,27 @@ const excelDateToJS = (serial) => {
   return dateInfo.toLocaleDateString("tr-TR");
 };
 
-/* ✅ Güvenli sayı çevirici */
-const toNumber = (value) => {
-  if (value === null || value === undefined) return 0;
-  if (typeof value === "number") return value;
-  if (typeof value === "string") {
-    const v = value.replace(",", ".").trim();
-    const n = Number(v);
-    return isNaN(n) ? 0 : n;
-  }
-  return 0;
+/* ✅ Güvenli sayı */
+const toNumber = (v) => {
+  if (v === null || v === undefined) return 0;
+  if (typeof v === "number") return v;
+  const n = Number(String(v).replace(",", "."));
+  return isNaN(n) ? 0 : n;
+};
+
+/* ✅ Yanlış hesaplayıcı (doğru + yanlış + boş mantığına UYGUN) */
+const calcWrong = (row, ders, soruSayisi) => {
+  const wrong = toNumber(row[`${ders} Yanlış`]);
+  if (wrong > 0) return wrong;
+
+  const dogru = toNumber(row[`${ders} Doğru`]);
+  const net = toNumber(row[`${ders} Net`]);
+
+  // Net = Doğru - Yanlış/4  → Yanlış = (Doğru - Net) * 4
+  const hesaplananYanlis = Math.round(Math.max(0, (dogru - net) * 4));
+
+  // Toplam soru sınır güvenliği
+  return Math.min(hesaplananYanlis, soruSayisi - dogru);
 };
 
 export function DenemeProvider({ children }) {
@@ -40,10 +50,10 @@ export function DenemeProvider({ children }) {
 
         const buffer = await res.arrayBuffer();
         const workbook = XLSX.read(buffer, { type: "array" });
-        const worksheet = workbook.Sheets[workbook.SheetNames[0]];
-        if (!worksheet) return;
+        const sheet = workbook.Sheets[workbook.SheetNames[0]];
+        if (!sheet) return;
 
-        const json = XLSX.utils.sheet_to_json(worksheet);
+        const json = XLSX.utils.sheet_to_json(sheet);
 
         const parsed = json.map((row, index) => {
           const base = {
@@ -55,7 +65,9 @@ export function DenemeProvider({ children }) {
             toplamNet: toNumber(row["Toplam Net"]),
           };
 
+          /* ✅ MEVCUT – HİÇ DOKUNULMADI */
           let dersNetleri = {};
+          let dersYanlisleri = {};
 
           if (tur === "TYT") {
             dersNetleri = {
@@ -68,6 +80,19 @@ export function DenemeProvider({ children }) {
               fizik: toNumber(row["Fizik Net"]),
               kimya: toNumber(row["Kimya Net"]),
               biyoloji: toNumber(row["Biyoloji Net"]),
+            };
+
+            /* ✅ YENİ – YANLIŞLAR */
+            dersYanlisleri = {
+              turkce: calcWrong(row, "Türkçe", 40),
+              matematik: calcWrong(row, "Matematik", 40),
+              tarih: calcWrong(row, "Tarih", 5),
+              cografya: calcWrong(row, "Coğrafya", 5),
+              felsefe: calcWrong(row, "Felsefe", 5),
+              din: calcWrong(row, "Din", 5),
+              fizik: calcWrong(row, "Fizik", 7),
+              kimya: calcWrong(row, "Kimya", 7),
+              biyoloji: calcWrong(row, "Biyoloji", 6),
             };
           } else {
             dersNetleri = {
@@ -83,9 +108,20 @@ export function DenemeProvider({ children }) {
               kimya: toNumber(row["Kimya Net"]),
               biyoloji: toNumber(row["Biyoloji Net"]),
             };
+
+            dersYanlisleri = {
+              matematik: calcWrong(row, "Matematik", 40),
+              fizik: calcWrong(row, "Fizik", 14),
+              kimya: calcWrong(row, "Kimya", 13),
+              biyoloji: calcWrong(row, "Biyoloji", 13),
+            };
           }
 
-          return { ...base, dersNetleri };
+          return {
+            ...base,
+            dersNetleri,      // ✅ ESKİ SAYFALAR İÇİN
+            dersYanlisleri,   // ✅ SADECE YANLIŞLAR SAYFASI
+          };
         });
 
         setter(parsed);

@@ -9,6 +9,11 @@ import SoruGirisi from "./pages/SoruGirisi";
 import Kaynaklar from "./pages/Kaynaklar";
 import Denemeler from "./pages/Denemeler";
 import DenemeAnaliz from "./pages/DenemeAnaliz";
+import TYTAnaliz from "./pages/TYTAnaliz";
+import AYTAnaliz from "./pages/AYTAnaliz";
+
+// ✅ Yanlışlar
+import Yanlislar from "./pages/Yanlislar";
 
 import Layout from "./Layout";
 
@@ -69,12 +74,42 @@ function App() {
             }
           />
 
+          {/* ✅ TYT ANALİZ */}
+          <Route
+            path="/denemeler/tyt"
+            element={
+              <Layout>
+                <TYTAnaliz />
+              </Layout>
+            }
+          />
+
+          {/* ✅ AYT ANALİZ */}
+          <Route
+            path="/denemeler/ayt"
+            element={
+              <Layout>
+                <AYTAnaliz />
+              </Layout>
+            }
+          />
+
           {/* ✅ DENEME ANALİZ – PARAMETRELİ */}
           <Route
             path="/deneme-analiz/:tur/:id"
             element={
               <Layout>
                 <DenemeAnaliz />
+              </Layout>
+            }
+          />
+
+          {/* ✅ DENEMELER / YANLIŞLAR */}
+          <Route
+            path="/denemeler/yanlislar"
+            element={
+              <Layout>
+                <Yanlislar />
               </Layout>
             }
           />
