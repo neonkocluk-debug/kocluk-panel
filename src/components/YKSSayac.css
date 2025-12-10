@@ -1,0 +1,28 @@
+.yks-sayac {
+  margin-top: 32px;
+}
+
+.sayac-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+
+.sayac-box {
+  background: rgba(255, 255, 255, 0.06);
+  border-radius: 16px;
+  padding: 24px;
+  text-align: center;
+  backdrop-filter: blur(10px);
+}
+
+.sayac-value {
+  font-size: 32px;
+  font-weight: 700;
+}
+
+.sayac-label {
+  margin-top: 6px;
+  opacity: 0.75;
+  font-size: 14px;
+}

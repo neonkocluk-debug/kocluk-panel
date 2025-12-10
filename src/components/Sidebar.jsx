@@ -1,4 +1,3 @@
-// src/components/Sidebar.jsx
 import React, { useState } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
@@ -58,7 +57,7 @@ export default function Sidebar() {
           <span className="label">Kaynaklar</span>
         </NavLink>
 
-        {/* ===== DENEMELER ANA BAŞLIK ===== */}
+        {/* ===== DENEMELER ===== */}
         <div className="sidebar-section">
           <NavLink
             to="/denemeler"
@@ -69,8 +68,16 @@ export default function Sidebar() {
             <span className="label">Denemeler</span>
           </NavLink>
 
-          {/* Alt Sekmeler */}
           <div className="sidebar-submenu">
+            {/* ✅ DENEME KARNEM – EN ÜSTTE */}
+            <NavLink
+              to="/deneme-karnem"
+              className="sidebar-sublink"
+              onClick={handleLinkClick}
+            >
+              Deneme Karnem
+            </NavLink>
+
             <NavLink
               to="/denemeler/tyt"
               className="sidebar-sublink"
@@ -78,6 +85,7 @@ export default function Sidebar() {
             >
               TYT
             </NavLink>
+
             <NavLink
               to="/denemeler/ayt"
               className="sidebar-sublink"
@@ -85,6 +93,7 @@ export default function Sidebar() {
             >
               AYT
             </NavLink>
+
             <NavLink
               to="/denemeler/yanlislar"
               className="sidebar-sublink"

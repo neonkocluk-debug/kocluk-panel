@@ -11,9 +11,10 @@ import Denemeler from "./pages/Denemeler";
 import DenemeAnaliz from "./pages/DenemeAnaliz";
 import TYTAnaliz from "./pages/TYTAnaliz";
 import AYTAnaliz from "./pages/AYTAnaliz";
-
-// ✅ Yanlışlar
 import Yanlislar from "./pages/Yanlislar";
+
+import DenemeKarnem from "./pages/DenemeKarnem"; // ✅ MOBİL KARNEM
+import DenemeAnalizMobile from "./pages/DenemeAnalizMobile"; // ✅ MOBİL ANALİZ
 
 import Layout from "./Layout";
 
@@ -28,90 +29,42 @@ function App() {
           <Route path="/register" element={<Register />} />
 
           {/* ✅ Layout kullanan tüm sayfalar */}
-          <Route
-            path="/dashboard"
-            element={
-              <Layout>
-                <Dashboard />
-              </Layout>
-            }
-          />
+          <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
 
-          <Route
-            path="/ogrenci"
-            element={
-              <Layout>
-                <OgrenciDashboard />
-              </Layout>
-            }
-          />
+          <Route path="/ogrenci" element={<Layout><OgrenciDashboard /></Layout>} />
 
-          <Route
-            path="/soru-giris"
-            element={
-              <Layout>
-                <SoruGirisi />
-              </Layout>
-            }
-          />
+          <Route path="/soru-giris" element={<Layout><SoruGirisi /></Layout>} />
 
-          <Route
-            path="/kaynaklar"
-            element={
-              <Layout>
-                <Kaynaklar />
-              </Layout>
-            }
-          />
+          <Route path="/kaynaklar" element={<Layout><Kaynaklar /></Layout>} />
 
-          {/* ✅ DENEMELER */}
+          {/* ✅ DENEMELER (ESKİ – MASAÜSTÜ) */}
+          <Route path="/denemeler" element={<Layout><Denemeler /></Layout>} />
+
+          {/* ✅ DENEME KARNEM (YENİ – MOBİL ODAKLI) */}
+          <Route path="/deneme-karnem" element={<Layout><DenemeKarnem /></Layout>} />
+
+          {/* ✅ MOBİL DENEME ANALİZ (YENİ) */}
           <Route
-            path="/denemeler"
-            element={
-              <Layout>
-                <Denemeler />
-              </Layout>
-            }
+            path="/deneme-analiz-mobile/:tur/:id"
+            element={<Layout><DenemeAnalizMobile /></Layout>}
           />
 
           {/* ✅ TYT ANALİZ */}
-          <Route
-            path="/denemeler/tyt"
-            element={
-              <Layout>
-                <TYTAnaliz />
-              </Layout>
-            }
-          />
+          <Route path="/denemeler/tyt" element={<Layout><TYTAnaliz /></Layout>} />
 
           {/* ✅ AYT ANALİZ */}
-          <Route
-            path="/denemeler/ayt"
-            element={
-              <Layout>
-                <AYTAnaliz />
-              </Layout>
-            }
-          />
+          <Route path="/denemeler/ayt" element={<Layout><AYTAnaliz /></Layout>} />
 
-          {/* ✅ DENEME ANALİZ – PARAMETRELİ */}
+          {/* ✅ ESKİ DENEME ANALİZ (MASAÜSTÜ KALIYOR) */}
           <Route
             path="/deneme-analiz/:tur/:id"
-            element={
-              <Layout>
-                <DenemeAnaliz />
-              </Layout>
-            }
+            element={<Layout><DenemeAnaliz /></Layout>}
           />
 
-          {/* ✅ DENEMELER / YANLIŞLAR */}
+          {/* ✅ YANLIŞLAR */}
           <Route
             path="/denemeler/yanlislar"
-            element={
-              <Layout>
-                <Yanlislar />
-              </Layout>
-            }
+            element={<Layout><Yanlislar /></Layout>}
           />
 
         </Routes>

@@ -33,3 +33,67 @@
     transform: translateX(-100%);
   }
 }
+
+/* =============================== */
+/* ✅ DENEMELER – RESPONSIVE FIX   */
+/* =============================== */
+
+/* 🖥️ VARSAYILAN: MASAÜSTÜ */
+.deneme-desktop {
+  display: block;
+}
+
+.deneme-mobile {
+  display: none;
+}
+
+/* 📱 SADECE MOBİL */
+@media (max-width: 768px) {
+
+  .deneme-desktop {
+    display: none;
+  }
+
+  .deneme-mobile {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+  }
+}
+
+/* ✅ DENEMELER SAYFASI – MOBİL FIX */
+@media (max-width: 768px) {
+  .deneme-panel {
+    width: 100% !important;
+    max-width: 100% !important;
+    margin: 0 !important;
+    border-radius: 0 !important;
+    padding-left: 16px !important;
+    padding-right: 16px !important;
+  }
+}
+
+/* =============================== */
+/* ✅ GLOBAL MOBİL CONTENT FIX ✅ */
+/* =============================== */
+
+@media (max-width: 768px) {
+  .app-layout {
+    min-height: auto;
+    height: auto;
+    overflow: visible;
+    flex-direction: column;
+  }
+
+  .app-content {
+    height: auto;
+    min-height: auto;
+    overflow: visible;
+  }
+
+  .app-inner {
+    height: auto;
+    min-height: auto;
+    overflow: visible;
+  }
+}

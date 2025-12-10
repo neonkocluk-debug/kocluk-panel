@@ -45,8 +45,11 @@
 }
 
 .sidebar-logo-img {
-  width: 90px;
+  max-width: 120x;
+  width: 100%;
+  height: auto;
 }
+
 
 /* === MENU LINK === */
 .sidebar-link {

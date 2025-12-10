@@ -90,46 +90,6 @@ function parseTarih(tarihStr = "") {
   return new Date(Number(yil), Number(ay) - 1, Number(gun));
 }
 
-// Eski custom label (şu an kullanılmıyor ama bırakıyorum)
-function CustomBarLabel(props) {
-  const { x = 0, y = 0, width = 0, height = 0, payload } = props;
-  if (!payload) return null;
-
-  const centerX = x + width / 2;
-  const centerY = y + height / 2;
-
-  const net =
-    typeof payload.net === "number" ? payload.net.toFixed(2) : null;
-  const oran =
-    typeof payload.oran === "number" ? payload.oran : null;
-
-  if (net === null || oran === null) return null;
-
-  return (
-    <>
-      <text
-        x={centerX}
-        y={centerY}
-        textAnchor="middle"
-        fill="#0f172a"
-        fontSize={12}
-        fontWeight="600"
-      >
-        {net} Net
-      </text>
-      <text
-        x={centerX}
-        y={y - 6}
-        textAnchor="middle"
-        fill="#a5f3fc"
-        fontSize={11}
-      >
-        %{oran} Başarı
-      </text>
-    </>
-  );
-}
-
 export default function DenemeAnaliz() {
   const { tur, id } = useParams();
   const navigate = useNavigate();
@@ -147,9 +107,37 @@ export default function DenemeAnaliz() {
   if (!deneme) {
     return (
       <div className="page-wrapper">
-        <div className="panel-box">
-          <p>Deneme bulunamadı.</p>
-          <button onClick={() => navigate(-1)}>← Geri dön</button>
+        <div
+          className="panel-box"
+          style={{
+            maxWidth: 480,
+            margin: "0 auto",
+            textAlign: "center",
+          }}
+        >
+          <h2 style={{ fontSize: 18, marginBottom: 8 }}>
+            Deneme bulunamadı
+          </h2>
+
+          <p style={{ fontSize: 13, opacity: 0.7 }}>
+            Bu deneme silinmiş olabilir veya erişimin yok.
+          </p>
+
+          <button
+            onClick={() => navigate(-1)}
+            style={{
+              marginTop: 16,
+              padding: "10px 16px",
+              borderRadius: 10,
+              background: "rgba(59,130,246,0.15)",
+              border: "1px solid rgba(59,130,246,0.4)",
+              color: "#bfdbfe",
+              fontSize: 14,
+              cursor: "pointer",
+            }}
+          >
+            ← Denemelere Geri Dön
+          </button>
         </div>
       </div>
     );
@@ -194,28 +182,34 @@ export default function DenemeAnaliz() {
       : AYT_SORU_SAYILARI[alan] || {};
 
   // ✅ Grafik datası: her ders için NET, %BAŞARI, NET FARKI
-  const chartData = dersler.map((d) => {
-    const net = typeof nets[d.key] === "number" ? nets[d.key] : 0;
-    const prevNet =
-      typeof prevNets[d.key] === "number" ? prevNets[d.key] : 0;
-    const soru = soruSayilari[d.key] || 0;
+  const chartData = dersler
+    .map((d) => {
+      const net = typeof nets[d.key] === "number" ? nets[d.key] : 0;
+      const prevNet =
+        typeof prevNets[d.key] === "number" ? prevNets[d.key] : 0;
+      const soru = soruSayilari[d.key] || 0;
 
-    const oran = soru ? Math.round((net / soru) * 100) : 0;
-    const diff = parseFloat((net - prevNet).toFixed(2)); // net farkı
+      const oran = soru ? Math.round((net / soru) * 100) : 0;
+      const diff = parseFloat((net - prevNet).toFixed(2)); // net farkı
 
-    return {
-      ders: d.label,
-      net,
-      oran,
-      diff,
-    };
-  });
+      return {
+        ders: d.label,
+        net,
+        oran,
+        diff,
+      };
+    })
+    // 🔥 Başarı oranına göre büyükten küçüğe sırala
+    .sort((a, b) => b.oran - a.oran);
 
   const getColor = (oran) => {
     if (oran >= 75) return "#22c55e"; // yeşil
     if (oran >= 60) return "#38bdf8"; // mavi
     return "#ef4444"; // kırmızı
   };
+
+  // Çubuk sayısına göre dinamik yükseklik (mobilde de rahat görünsün)
+  const chartHeight = Math.max(260, chartData.length * 60);
 
   return (
     <div className="page-wrapper">
@@ -240,16 +234,24 @@ export default function DenemeAnaliz() {
           </p>
         </div>
 
-        {/* ✅ GRAFİK – DERS BAZLI BAŞARI ORANI & NETLER */}
+        {/* ✅ YATAY GRAFİK – DERS BAZLI BAŞARI ORANI (%) & NETLER */}
         <h2 className="text-lg font-semibold mb-3">
           Ders Bazlı Başarı Oranı (%) & Değişim
         </h2>
 
-        <div style={{ width: "100%", height: 320 }}>
+        <div style={{ width: "100%", height: chartHeight }}>
           <ResponsiveContainer>
-            <BarChart data={chartData}>
-              <XAxis dataKey="ders" />
-              <YAxis domain={[0, 110]} tickFormatter={(v) => `%${v}`} />
+            <BarChart
+              data={chartData}
+              layout="vertical" // 🔥 YATAY BAR
+              margin={{ top: 10, right: 30, left: 10, bottom: 10 }}
+            >
+              <XAxis
+                type="number"
+                domain={[0, 110]}
+                tickFormatter={(v) => `%${v}`}
+              />
+              <YAxis type="category" dataKey="ders" width={90} />
               <Tooltip
                 formatter={(value, name, props) => {
                   const payload = props?.payload || {};
@@ -260,18 +262,26 @@ export default function DenemeAnaliz() {
                         : payload.net;
                     return [`%${payload.oran} Başarı`, `${net} Net`];
                   }
+                  if (name === "net") {
+                    return [
+                      typeof value === "number"
+                        ? `${value.toFixed(2)} Net`
+                        : `${value} Net`,
+                      "Net",
+                    ];
+                  }
                   return [value, name];
                 }}
               />
-              <Bar dataKey="oran" radius={[6, 6, 0, 0]}>
+              <Bar dataKey="oran" radius={[0, 6, 6, 0]}>
                 {chartData.map((entry, index) => (
                   <Cell key={index} fill={getColor(entry.oran)} />
                 ))}
 
-                {/* Barın ortasında NET */}
+                {/* Çubuğun içinde NET değeri */}
                 <LabelList
                   dataKey="net"
-                  position="center"
+                  position="insideRight"
                   style={{
                     fill: "#0f172a",
                     fontSize: 12,
@@ -284,10 +294,10 @@ export default function DenemeAnaliz() {
                   }
                 />
 
-                {/* Barın üstünde % BAŞARI */}
+                {/* Çubuğun ucunda % BAŞARI */}
                 <LabelList
                   dataKey="oran"
-                  position="top"
+                  position="right"
                   style={{
                     fill: "#e0f2fe",
                     fontSize: 11,
@@ -344,4 +354,3 @@ export default function DenemeAnaliz() {
     </div>
   );
 }
-
