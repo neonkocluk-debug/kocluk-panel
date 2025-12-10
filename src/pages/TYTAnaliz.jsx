@@ -12,6 +12,8 @@ import {
   LabelList,
 } from "recharts";
 
+import { useIsMobile } from "../hooks/useIsMobile";
+
 /* ================= YARDIMCILAR ================= */
 
 const normalize = (s = "") =>
@@ -49,11 +51,13 @@ export default function TYTAnaliz() {
   const { activeUser } = useContext(UserContext) || {};
   const { tytDenemeler = [] } = useContext(DenemeContext) || {};
 
+  // ✅ TEK ve DOĞRU MOBİL KAYNAĞI
+  const isMobile = useIsMobile();
+
   if (!activeUser?.ad) {
     return <p style={{ padding: 20 }}>Giriş yapılmamış.</p>;
   }
 
-  /* ✅ SON 5 TYT – ESKİDEN → YENİYE */
   const myTYT = tytDenemeler
     .filter((d) => isSameStudent(d?.ogrenci, activeUser.ad))
     .sort((a, b) => parseTarih(a.tarih) - parseTarih(b.tarih))
@@ -88,59 +92,87 @@ export default function TYTAnaliz() {
 
         {TYT_DERSLER.map((ders) => {
           const data = myTYT.map((d) => ({
-            deneme: d.denemeAdi || "Deneme",
+            deneme: isMobile ? d.denemeAdi?.slice(0, 8) || "Deneme" : d.denemeAdi,
             net: Number(d?.dersNetleri?.[ders.key] ?? 0),
           }));
 
           const trend = getTrend(data);
 
+          const chartHeight = isMobile
+            ? 90 + data.length * 48
+            : 60 + data.length * 40;
+
           return (
             <div
               key={ders.key}
-              style={{
-                marginBottom: 44,
-                position: "relative",
-              }}
+              style={{ marginBottom: 44, width: "100%" }}
             >
-              {/* ÜST BAŞLIK */}
+              {/* BAŞLIK */}
               <div
                 style={{
                   display: "flex",
                   justifyContent: "space-between",
+                  alignItems: "center",
                   marginBottom: 6,
                 }}
               >
-                <strong>{ders.label}</strong>
+                <strong style={{ color: "#f9fafb" }}>
+  {ders.label}
+</strong>
+
+
+                {!isMobile && (
+                  <span
+                    style={{
+                      fontWeight: 600,
+                      fontSize: 13,
+                      color: trendColor(trend),
+                    }}
+                  >
+                    {trend}
+                  </span>
+                )}
               </div>
 
               {/* GRAFİK */}
-              <div style={{ width: "100%", height: 180 }}>
+              <div
+                style={{
+                  width: "100%",
+                  height: chartHeight,
+                  overflow: "hidden",
+                }}
+              >
                 <ResponsiveContainer>
                   <BarChart
-  data={data}
-  barCategoryGap={40}
-  margin={{ top: 40, right: 20 }}
->
-
+                    data={data}
+                    layout="vertical"
+                    margin={{ top: 16, right: 24, left: 0, bottom: 8 }}
+                    barCategoryGap={isMobile ? 12 : 16}
+                  >
                     <XAxis
-                      dataKey="deneme"
-                      tick={{ fontSize: 12, fill: "#e5e7eb" }}
+                      type="number"
+                      tick={{ fontSize: isMobile ? 10 : 11, fill: "#e5e7eb" }}
                     />
-                    <YAxis />
+                    <YAxis
+                      type="category"
+                      dataKey="deneme"
+                      width={isMobile ? 80 : 100}
+                      tick={{ fontSize: isMobile ? 10 : 11, fill: "#e5e7eb" }}
+                    />
                     <Tooltip />
+
                     <Bar
                       dataKey="net"
                       fill={trendColor(trend)}
-                      barSize={48}   // ✅ BARLAR GENİŞ
-                      radius={[10, 10, 4, 4]}
+                      barSize={isMobile ? 20 : 32}
+                      radius={[0, 10, 10, 0]}
                     >
-                      {/* ✅ NET – BAR ÜSTÜ */}
                       <LabelList
                         dataKey="net"
-                        position="top"
+                        position="right"
                         style={{
                           fill: "#e5e7eb",
-                          fontSize: 12,
+                          fontSize: isMobile ? 11 : 12,
                           fontWeight: 600,
                         }}
                       />
@@ -149,19 +181,19 @@ export default function TYTAnaliz() {
                 </ResponsiveContainer>
               </div>
 
-              {/* ✅ TREND – EN SAĞ */}
-              <div
-                style={{
-                  position: "absolute",
-                  right: 0,
-                  top: 28,
-                  fontWeight: 600,
-                  fontSize: 13,
-                  color: trendColor(trend),
-                }}
-              >
-                {trend}
-              </div>
+              {/* MOBİL TREND */}
+              {isMobile && (
+                <div
+                  style={{
+                    marginTop: 6,
+                    fontSize: 12,
+                    fontWeight: 600,
+                    color: trendColor(trend),
+                  }}
+                >
+                  Trend: {trend}
+                </div>
+              )}
             </div>
           );
         })}

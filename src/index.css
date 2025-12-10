@@ -1,36 +1,115 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+/* ============================================= */
+/* 🔒 GLOBAL RESET & MOBILE HORIZONTAL LOCK      */
+/* ============================================= */
 
-.page-wrapper {
-  margin-left: 140px;
-  padding: 32px 40px;   /* ⬅ üstten biraz daha nefes */
-  min-height: 100vh;
-  background: #f8fafc;
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
 }
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden; /* 🔥 SAĞA KAYMAYI KESER */
+  background: #0a1b33;
+}
+
+/* Root container (Vite / React) */
+#root {
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* ============================================= */
+/* ✅ FLEX TAŞMA BUG FIX (ÇOK KRİTİK)            */
+/* ============================================= */
+
+.app-layout,
+.app-content,
+.app-inner {
+  min-width: 0; /* 🔥 Recharts + flex taşma bug’ını çözer */
+}
+
+/* ============================================= */
+/* ✅ SAFARI / iOS SAFE-AREA FIX                 */
+/* ============================================= */
+
+body {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+/* ============================================= */
+/* ✅ GENEL TYPO + SCROLL + RENKLER              */
+/* ============================================= */
+
+body {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Inter",
+    "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  line-height: 1.4;
+  color: #e5e7eb;           /* 🧊 GENEL YAZI RENGİ */
+}
+
+/* Başlıkları da beyaza çekelim */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  color: #f9fafb;
+}
+
+/* Panel içindeki tüm yazılar */
 .panel-box {
-  background: linear-gradient(
-    180deg,
-    rgba(10, 27, 51, 0.97),
-    rgba(15, 40, 70, 0.97)
-  );
-  border-radius: 24px;
-  padding: 32px;
-  color: #fff;
-
-  box-shadow:
-    0 20px 40px rgba(0,0,0,0.25),
-    inset 0 1px 0 rgba(255,255,255,0.06);
+  color: #e5e7eb;
 }
 
-/* ✅ DENEMELER SAYFASI – MOBİL FIX */
+/* TYTAnaliz içindeki ders isimleri (strong) */
+.panel-box strong {
+  color: #f9fafb;
+}
+
+/* Deneme Kartları (DenemeKarnem) – tarih ve netler için garanti olsun */
+.panel-box div,
+.panel-box p,
+.panel-box span {
+  color: #e5e7eb;
+}
+
+/* ============================================= */
+/* ✅ MOBİL MENU BUTONU KİLİDİ                   */
+/* ============================================= */
+
+.mobile-menu-btn {
+  max-width: 90%;
+  white-space: nowrap;
+}
+
+/* ============================================= */
+/* ✅ GRAFİK & SVG TAŞMA ÖNLEMİ                  */
+/* ============================================= */
+
+svg,
+canvas {
+  max-width: 100%;
+  display: block;
+}
+
+/* ============================================= */
+/* ✅ SON EMNİYET: YATAY SCROLL KAPAT            */
+/* ============================================= */
+
 @media (max-width: 768px) {
-  .deneme-panel {
-    width: 100% !important;
-    max-width: 100% !important;
-    margin: 0 !important;
-    border-radius: 0 !important;
-    padding-left: 16px !important;
-    padding-right: 16px !important;
+  body,
+  #root {
+    overflow-x: hidden;
   }
 }

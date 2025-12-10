@@ -69,14 +69,7 @@ export default function Sidebar() {
           </NavLink>
 
           <div className="sidebar-submenu">
-            {/* ✅ DENEME KARNEM – EN ÜSTTE */}
-            <NavLink
-              to="/deneme-karnem"
-              className="sidebar-sublink"
-              onClick={handleLinkClick}
-            >
-              Deneme Karnem
-            </NavLink>
+            {/* ❌ DENEME KARNEM MENÜDEN KALDIRILDI */}
 
             <NavLink
               to="/denemeler/tyt"
