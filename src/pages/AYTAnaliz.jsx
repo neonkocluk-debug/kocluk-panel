@@ -65,6 +65,8 @@ export default function AYTAnaliz() {
   const { activeUser } = useContext(UserContext) || {};
   const { aytDenemeler = [] } = useContext(DenemeContext) || {};
 
+  const isMobile = window.innerWidth < 768;
+
   if (!activeUser?.ad) {
     return <p style={{ padding: 20 }}>Giriş yapılmamış.</p>;
   }
@@ -124,38 +126,76 @@ export default function AYTAnaliz() {
 
           const trend = getTrend(data);
 
+          const chartHeight = isMobile
+            ? 90 + data.length * 48
+            : 60 + data.length * 40;
+
           return (
             <div
               key={ders.key}
               style={{ marginBottom: 44, position: "relative" }}
             >
-              <strong>{ders.label}</strong>
+              {/* ÜST BAŞLIK */}
+              <div
+                style={{
+                  display: "flex",
+                  justifyContent: "space-between",
+                  marginBottom: 6,
+                  fontWeight: 600,
+                }}
+              >
+                <strong>{ders.label}</strong>
 
-              <div style={{ width: "100%", height: 180 }}>
+                {!isMobile && (
+                  <span
+                    style={{
+                      fontSize: 13,
+                      color: trendColor(trend),
+                    }}
+                  >
+                    {trend}
+                  </span>
+                )}
+              </div>
+
+              {/* GRAFİK – TYT İLE AYNI (YATAY) */}
+              <div style={{ width: "100%", height: chartHeight }}>
                 <ResponsiveContainer>
                   <BarChart
                     data={data}
-                    barCategoryGap={40}
-                    margin={{ top: 40, right: 20 }}
+                    layout="vertical"
+                    margin={{ top: 16, right: 24, left: 0, bottom: 8 }}
+                    barCategoryGap={isMobile ? 12 : 16}
                   >
                     <XAxis
-                      dataKey="deneme"
-                      tick={{ fontSize: 12, fill: "#e5e7eb" }}
+                      type="number"
+                      tick={{
+                        fontSize: isMobile ? 10 : 11,
+                        fill: "#e5e7eb",
+                      }}
                     />
-                    <YAxis domain={[0, (max) => Math.ceil(max + 2)]} />
+                    <YAxis
+                      type="category"
+                      dataKey="deneme"
+                      width={isMobile ? 70 : 90}
+                      tick={{
+                        fontSize: isMobile ? 10 : 11,
+                        fill: "#e5e7eb",
+                      }}
+                    />
                     <Tooltip />
                     <Bar
                       dataKey="net"
                       fill={trendColor(trend)}
-                      barSize={48}
-                      radius={[10, 10, 4, 4]}
+                      barSize={isMobile ? 22 : 32}
+                      radius={[0, 10, 10, 0]}
                     >
                       <LabelList
                         dataKey="net"
-                        position="top"
+                        position="right"
                         style={{
                           fill: "#e5e7eb",
-                          fontSize: 12,
+                          fontSize: isMobile ? 11 : 12,
                           fontWeight: 600,
                         }}
                       />
@@ -164,18 +204,19 @@ export default function AYTAnaliz() {
                 </ResponsiveContainer>
               </div>
 
-              <div
-                style={{
-                  position: "absolute",
-                  right: 0,
-                  top: 22,
-                  fontWeight: 600,
-                  fontSize: 13,
-                  color: trendColor(trend),
-                }}
-              >
-                {trend}
-              </div>
+              {/* MOBİL TREND */}
+              {isMobile && (
+                <div
+                  style={{
+                    marginTop: 6,
+                    fontSize: 12,
+                    fontWeight: 600,
+                    color: trendColor(trend),
+                  }}
+                >
+                  Trend: {trend}
+                </div>
+              )}
             </div>
           );
         })}

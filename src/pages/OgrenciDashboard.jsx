@@ -252,7 +252,10 @@ export default function OgrenciDashboard() {
       <div className="soru-glow glow2" />
 
       <div className="soru-box">
-        <h2>🎯 Öğrenci Paneli – Özet ve İlerleme</h2>
+        <h2>
+  🎯 {activeUser.ad} · YKS Yolculuğu
+</h2>
+
 
         {/* ÜST ÖZET KUTULARI */}
         <div

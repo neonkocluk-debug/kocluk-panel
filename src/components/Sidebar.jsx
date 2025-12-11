@@ -36,7 +36,7 @@ export default function Sidebar() {
 
         <NavLink to="/ogrenci" className="sidebar-link" onClick={handleLinkClick}>
           <span className="icon">🎯</span>
-          <span className="label">Öğrenci Ana Sayfa</span>
+          <span className="label">Ana Sayfa</span>
         </NavLink>
 
         <NavLink
