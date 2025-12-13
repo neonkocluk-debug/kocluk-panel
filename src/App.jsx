@@ -13,8 +13,10 @@ import TYTAnaliz from "./pages/TYTAnaliz";
 import AYTAnaliz from "./pages/AYTAnaliz";
 import Yanlislar from "./pages/Yanlislar";
 
-import DenemeKarnem from "./pages/DenemeKarnem"; // ✅ MOBİL KARNEM
-import DenemeAnalizMobile from "./pages/DenemeAnalizMobile"; // ✅ MOBİL ANALİZ
+import DenemeKarnem from "./pages/DenemeKarnem";
+import DenemeAnalizMobile from "./pages/DenemeAnalizMobile";
+
+import AdminHome from "./pages/AdminHome";
 
 import Layout from "./Layout";
 
@@ -24,47 +26,118 @@ function App() {
       <BrowserRouter>
         <Routes>
 
-          {/* ✅ Login & Register – layoutsuz */}
+          {/* 🔓 Login & Register */}
           <Route path="/" element={<Login />} />
           <Route path="/register" element={<Register />} />
 
-          {/* ✅ Layout kullanan tüm sayfalar */}
-          <Route path="/dashboard" element={<Layout><Dashboard /></Layout>} />
+          {/* 👑 ADMIN — SIDEBAR YOK */}
+          <Route
+            path="/admin"
+            element={
+              <Layout hideSidebar fullWidth>
+                <AdminHome />
+              </Layout>
+            }
+          />
 
-          <Route path="/ogrenci" element={<Layout><OgrenciDashboard /></Layout>} />
+          {/* 👤 DİĞER SAYFALAR — SIDEBAR VAR */}
+          <Route
+            path="/dashboard"
+            element={
+              <Layout>
+                <Dashboard />
+              </Layout>
+            }
+          />
 
-          <Route path="/soru-giris" element={<Layout><SoruGirisi /></Layout>} />
+          <Route
+            path="/ogrenci"
+            element={
+              <Layout>
+                <OgrenciDashboard />
+              </Layout>
+            }
+          />
 
-          <Route path="/kaynaklar" element={<Layout><Kaynaklar /></Layout>} />
+          <Route
+            path="/soru-giris"
+            element={
+              <Layout>
+                <SoruGirisi />
+              </Layout>
+            }
+          />
 
-          {/* ✅ DENEMELER (ESKİ – MASAÜSTÜ) */}
-          <Route path="/denemeler" element={<Layout><Denemeler /></Layout>} />
+          <Route
+            path="/kaynaklar"
+            element={
+              <Layout>
+                <Kaynaklar />
+              </Layout>
+            }
+          />
 
-          {/* ✅ DENEME KARNEM (YENİ – MOBİL ODAKLI) */}
-          <Route path="/deneme-karnem" element={<Layout><DenemeKarnem /></Layout>} />
+          <Route
+            path="/denemeler"
+            element={
+              <Layout>
+                <Denemeler />
+              </Layout>
+            }
+          />
 
-          {/* ✅ MOBİL DENEME ANALİZ (YENİ) */}
+          <Route
+            path="/deneme-karnem"
+            element={
+              <Layout>
+                <DenemeKarnem />
+              </Layout>
+            }
+          />
+
           <Route
             path="/deneme-analiz-mobile/:tur/:id"
-            element={<Layout><DenemeAnalizMobile /></Layout>}
+            element={
+              <Layout fullWidth>
+                <DenemeAnalizMobile />
+              </Layout>
+            }
           />
 
-          {/* ✅ TYT ANALİZ */}
-          <Route path="/denemeler/tyt" element={<Layout><TYTAnaliz /></Layout>} />
+          <Route
+            path="/denemeler/tyt"
+            element={
+              <Layout>
+                <TYTAnaliz />
+              </Layout>
+            }
+          />
 
-          {/* ✅ AYT ANALİZ */}
-          <Route path="/denemeler/ayt" element={<Layout><AYTAnaliz /></Layout>} />
+          <Route
+            path="/denemeler/ayt"
+            element={
+              <Layout>
+                <AYTAnaliz />
+              </Layout>
+            }
+          />
 
-          {/* ✅ ESKİ DENEME ANALİZ (MASAÜSTÜ KALIYOR) */}
           <Route
             path="/deneme-analiz/:tur/:id"
-            element={<Layout><DenemeAnaliz /></Layout>}
+            element={
+              <Layout>
+                <DenemeAnaliz />
+              </Layout>
+            }
           />
 
-          {/* ✅ YANLIŞLAR */}
           <Route
             path="/denemeler/yanlislar"
-            element={<Layout><Yanlislar /></Layout>}
+            element={
+              <Layout>
+                <Yanlislar />
+              </Layout>
+            }
           />
 
         </Routes>

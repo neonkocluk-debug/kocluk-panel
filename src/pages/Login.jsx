@@ -21,13 +21,6 @@ export default function Login() {
   const handleLogin = async (e) => {
     e.preventDefault();
 
-    // ⭐ Admin girişi: sabit (değişmedi)
-    if (email === "admin" && password === "123") {
-      setActiveUser({ ad: "Admin", rol: "admin" });
-      navigate("/dashboard");
-      return;
-    }
-
     try {
       // 1) Firebase Auth ile giriş
       const userCredential = await signInWithEmailAndPassword(
@@ -37,7 +30,7 @@ export default function Login() {
       );
       const uid = userCredential.user.uid;
 
-      // 2) Firestore'dan öğrenci bilgisi
+      // 2) Firestore'dan kullanıcı bilgisi
       const ref = doc(db, "students", uid);
       const snap = await getDoc(ref);
 
@@ -51,12 +44,19 @@ export default function Login() {
       // 3) Context'e aktar
       setActiveUser(userData);
 
-      // ⭐⭐ 4) ROL'E GÖRE DOĞRU SAYFAYA YÖNLENDİRİYORUZ ⭐⭐
-      if (userData.rol === "ogrenci") {
-        navigate("/ogrenci");        // 🔥 Öğrenci yeni ana sayfaya gider
-      } else {
-        navigate("/dashboard");      // 🔥 Koç / Admin eski panele gider
+      // ✅ 4) ROL BAZLI NET YÖNLENDİRME
+      if (userData.rol === "admin") {
+        navigate("/admin");
+        return;
       }
+
+      if (userData.rol === "ogrenci") {
+        navigate("/ogrenci");
+        return;
+      }
+
+      // ⚠️ Geriye dönük uyumluluk (rol yoksa)
+      navigate("/dashboard");
 
     } catch (err) {
       console.error(err);

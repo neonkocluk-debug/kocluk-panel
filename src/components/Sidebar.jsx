@@ -1,11 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { NavLink, useNavigate } from "react-router-dom";
 import "./Sidebar.css";
 import logo from "../assets/mefkure-logo.svg";
 
+import { UserContext } from "../context/UserContext";
+
 export default function Sidebar() {
   const navigate = useNavigate();
   const [open, setOpen] = useState(false);
+
+  const { activeUser } = useContext(UserContext);
 
   const handleLogout = () => {
     localStorage.removeItem("activeUser");
@@ -34,28 +38,34 @@ export default function Sidebar() {
           <img src={logo} className="sidebar-logo-img" alt="logo" />
         </div>
 
+        {/* Ana Sayfa */}
         <NavLink to="/ogrenci" className="sidebar-link" onClick={handleLinkClick}>
           <span className="icon">🎯</span>
           <span className="label">Ana Sayfa</span>
         </NavLink>
 
-        <NavLink
-          to="/soru-giris"
-          className="sidebar-link"
-          onClick={handleLinkClick}
-        >
-          <span className="icon">📝</span>
-          <span className="label">Soru Girişi</span>
-        </NavLink>
+        {/* ⭐ ADMIN SORU GİRİŞİ VE KAYNAKLARI GÖRMESİN */}
+        {activeUser?.rol !== "admin" && (
+          <>
+            <NavLink
+              to="/soru-giris"
+              className="sidebar-link"
+              onClick={handleLinkClick}
+            >
+              <span className="icon">📝</span>
+              <span className="label">Soru Girişi</span>
+            </NavLink>
 
-        <NavLink
-          to="/kaynaklar"
-          className="sidebar-link"
-          onClick={handleLinkClick}
-        >
-          <span className="icon">📚</span>
-          <span className="label">Kaynaklar</span>
-        </NavLink>
+            <NavLink
+              to="/kaynaklar"
+              className="sidebar-link"
+              onClick={handleLinkClick}
+            >
+              <span className="icon">📚</span>
+              <span className="label">Kaynaklar</span>
+            </NavLink>
+          </>
+        )}
 
         {/* ===== DENEMELER ===== */}
         <div className="sidebar-section">
@@ -69,8 +79,6 @@ export default function Sidebar() {
           </NavLink>
 
           <div className="sidebar-submenu">
-            {/* ❌ DENEME KARNEM MENÜDEN KALDIRILDI */}
-
             <NavLink
               to="/denemeler/tyt"
               className="sidebar-sublink"

@@ -38,6 +38,9 @@ export default function OgrenciDashboard() {
 
   const bugunStr = new Date().toISOString().slice(0, 10);
 
+  // ⭐⭐ EKLENEN SATIR — ADMIN KONTROLÜ
+  const isAdmin = activeUser?.rol === "admin";
+
   // Soru istatistikleri
   const [todayTotal, setTodayTotal] = useState(0);
   const [weekTotal, setWeekTotal] = useState(0);
