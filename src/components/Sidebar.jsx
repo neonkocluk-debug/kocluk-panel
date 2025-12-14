@@ -39,7 +39,11 @@ export default function Sidebar() {
         </div>
 
         {/* Ana Sayfa */}
-        <NavLink to="/ogrenci" className="sidebar-link" onClick={handleLinkClick}>
+        <NavLink
+          to="/ogrenci"
+          className="sidebar-link"
+          onClick={handleLinkClick}
+        >
           <span className="icon">🎯</span>
           <span className="label">Ana Sayfa</span>
         </NavLink>
@@ -105,6 +109,20 @@ export default function Sidebar() {
           </div>
         </div>
 
+        {/* ===== AYRAÇ ===== */}
+        <hr style={{ opacity: 0.2, margin: "16px 0" }} />
+
+        {/* ===== YOLCULUĞUM (MENÜ BAŞLIĞI) ===== */}
+        <NavLink
+          to="/yolculugum"
+          className="sidebar-link"
+          onClick={handleLinkClick}
+        >
+          <span className="icon">🧭</span>
+          <span className="label">Yolculuğum</span>
+        </NavLink>
+
+        {/* Çıkış */}
         <button className="sidebar-logout" onClick={handleLogout}>
           <span className="icon">🚪</span>
           <span className="label">Çıkış Yap</span>

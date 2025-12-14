@@ -17,6 +17,7 @@ import DenemeKarnem from "./pages/DenemeKarnem";
 import DenemeAnalizMobile from "./pages/DenemeAnalizMobile";
 
 import AdminHome from "./pages/AdminHome";
+import Yolculugum from "./pages/Yolculugum"; // ✅ EKLENDİ
 
 import Layout from "./Layout";
 
@@ -136,6 +137,16 @@ function App() {
             element={
               <Layout>
                 <Yanlislar />
+              </Layout>
+            }
+          />
+
+          {/* 🌱 YOLCULUĞUM — SIDEBAR VAR */}
+          <Route
+            path="/yolculugum"
+            element={
+              <Layout>
+                <Yolculugum />
               </Layout>
             }
           />
